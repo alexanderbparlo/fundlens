@@ -1,0 +1,230 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-04-16",
+  "terms": [
+    {
+      "id": "irr",
+      "term": "IRR (Internal Rate of Return)",
+      "definition": "Time-weighted annualized return accounting for the timing of cash flows. Net IRR is after fees and carried interest; gross IRR is before fees.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "dpi",
+      "term": "DPI (Distributed to Paid-In)",
+      "definition": "Total distributions divided by total paid-in capital. Measures realized returns. DPI > 1.0 means the fund has returned more than was invested.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "rvpi",
+      "term": "RVPI (Residual Value to Paid-In)",
+      "definition": "Current NAV divided by total paid-in capital. Measures unrealized value remaining in the fund.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "tvpi",
+      "term": "TVPI (Total Value to Paid-In)",
+      "definition": "DPI + RVPI. Total value multiple — both realized and unrealized. The primary performance multiple used by LPs.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "moic",
+      "term": "MOIC (Multiple on Invested Capital)",
+      "definition": "Total value returned divided by capital invested. Similar to TVPI but sometimes calculated on invested capital rather than paid-in capital.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "management_fee",
+      "term": "Management Fee",
+      "definition": "Annual fee paid to the GP, typically 1.5–2.0% of committed or invested capital. Basis typically shifts from committed to invested capital after the investment period.",
+      "category": "Fee Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "carried_interest",
+      "term": "Carried Interest (Carry)",
+      "definition": "The GP's share of profits above the preferred return, typically 20%. The primary economic incentive for the fund manager.",
+      "category": "Fee Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "preferred_return",
+      "term": "Preferred Return (Hurdle Rate)",
+      "definition": "Minimum annualized return LPs must receive before carried interest is paid to the GP. Typically 8% for PE/VC funds.",
+      "category": "Fee Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "catch_up",
+      "term": "Catch-Up",
+      "definition": "Provision allowing the GP to receive a higher share of profits until it has received carry on the full amount above the hurdle. Structure varies: 50/50, 80/20, or 100% GP until caught up.",
+      "category": "Fee Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "clawback",
+      "term": "Clawback",
+      "definition": "Obligation for the GP to return carry distributions if, at fund wind-down, total carry received exceeds the amount it was entitled to on a whole-fund basis. Protects LPs in deal-by-deal waterfall structures.",
+      "category": "Fee Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "committed_capital",
+      "term": "Committed Capital",
+      "definition": "Total amount an LP has legally agreed to invest in the fund over the investment period.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "called_capital",
+      "term": "Called Capital (Paid-In Capital)",
+      "definition": "The portion of committed capital that the GP has drawn down from LPs to make investments or cover fees.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "uncalled_capital",
+      "term": "Uncalled Capital (Dry Powder)",
+      "definition": "The remaining unfunded commitment — capital that has been committed by LPs but not yet drawn by the GP.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "recycling",
+      "term": "Recycling",
+      "definition": "Provision allowing the GP to reinvest returned capital (from exits, dividends, or interest income) into new investments rather than distributing it to LPs. Increases effective deployment beyond committed capital.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "waterfall_american",
+      "term": "Deal-by-Deal Waterfall (American)",
+      "definition": "Distribution structure where carry is calculated and paid on each investment as it is realized, rather than waiting for full return of capital. Creates timing benefits for the GP but requires a robust clawback mechanism to protect LPs.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "waterfall_european",
+      "term": "Whole-Fund Waterfall (European)",
+      "definition": "Distribution structure where LPs must receive return of all capital plus preferred return before the GP receives any carried interest. More LP-favorable; standard in European PE funds.",
+      "category": "Capital Activity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "gp",
+      "term": "General Partner (GP)",
+      "definition": "The fund manager responsible for investment decisions, portfolio management, and fund operations. Has unlimited liability in the fund structure.",
+      "category": "Fund Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "lp",
+      "term": "Limited Partner (LP)",
+      "definition": "An investor in the fund with limited liability — liability capped at the amount of their commitment. Has no role in fund management.",
+      "category": "Fund Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "vintage_year",
+      "term": "Vintage Year",
+      "definition": "The year in which the fund held its first close or made its first investment. Used to compare performance against peer funds of the same vintage.",
+      "category": "Fund Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "investment_period",
+      "term": "Investment Period",
+      "definition": "The period during which the GP may make new investments or draw capital for new investments. Typically 4–6 years from the first close.",
+      "category": "Fund Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "fund_term",
+      "term": "Fund Term",
+      "definition": "The total legal life of the fund, after which remaining investments must be sold and proceeds distributed. Typically 10 years with optional 1–2 year extensions.",
+      "category": "Fund Structure",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "lock_up",
+      "term": "Lock-Up Period",
+      "definition": "Period during which hedge fund investors cannot redeem their capital. Typically 1–2 years from initial investment. Allows the manager to deploy capital without redemption pressure.",
+      "category": "Liquidity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "gate",
+      "term": "Gate",
+      "definition": "Provision limiting total redemptions from a hedge fund in any given period, typically 10–25% of NAV. Triggered when aggregate redemption requests exceed the gate threshold.",
+      "category": "Liquidity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "side_pocket",
+      "term": "Side Pocket",
+      "definition": "A segregated account within a hedge fund used to hold illiquid, hard-to-value, or special situation investments. Not subject to normal redemption terms. New investors do not participate in existing side pockets.",
+      "category": "Liquidity",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "nav",
+      "term": "NAV (Net Asset Value)",
+      "definition": "The total value of a fund's assets minus its liabilities. For open-end funds, NAV per share determines redemption price. For closed-end funds, NAV is used for performance reporting.",
+      "category": "Core Metrics",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "lpa",
+      "term": "LPA (Limited Partnership Agreement)",
+      "definition": "The primary legal document governing the fund. Defines rights and obligations of GP and LPs, fee structure, investment restrictions, distribution waterfall, and fund governance.",
+      "category": "Legal",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "ppm",
+      "term": "PPM (Private Placement Memorandum)",
+      "definition": "The offering document used to market the fund to prospective investors. Contains strategy description, risk factors, team biographies, fee summary, and subscription procedures.",
+      "category": "Legal",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    },
+    {
+      "id": "side_letter",
+      "term": "Side Letter",
+      "definition": "A bilateral agreement between the GP and a specific LP that modifies standard fund terms for that investor. May grant preferential fee terms, enhanced reporting rights, MFN rights, or co-investment rights.",
+      "category": "Legal",
+      "source": "built-in",
+      "added_at": "2026-04-16"
+    }
+  ]
+}
