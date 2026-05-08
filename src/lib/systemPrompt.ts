@@ -234,6 +234,17 @@ If the document is not a fund document, return the schema with all fields empty/
 
 If the document is heavily redacted or appears to be a template, flag this in flagged_items and set extraction_confidence to "Low".`
 
+// Prompt-cached block form of the system prompt.
+// Pass this to the `system` parameter instead of the raw string so the API
+// can cache the prompt across calls — cached input tokens cost 10% of normal.
+export const FUNDLENS_SYSTEM_BLOCKS = [
+  {
+    type: 'text' as const,
+    text: FUNDLENS_SYSTEM_PROMPT,
+    cache_control: { type: 'ephemeral' as const },
+  },
+]
+
 // Model configuration for Opus 4.7
 // Opus 4.7 uses adaptive thinking paired with output_config.effort.
 // xhigh effort lets the model spend maximum reasoning on complex financial documents.

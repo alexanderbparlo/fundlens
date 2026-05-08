@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import mammoth from 'mammoth'
-import { FUNDLENS_SYSTEM_PROMPT, MODEL_CONFIG } from '@/lib/systemPrompt'
+import { FUNDLENS_SYSTEM_BLOCKS, MODEL_CONFIG } from '@/lib/systemPrompt'
 import { checkRateLimit, rateLimitHeaders, getClientIdentifier } from '@/lib/rateLimit'
 import { LIMITS, checkContentLength } from '@/lib/requestGuards'
 import { parseAnalysisResponse } from '@/lib/utils'
@@ -203,7 +203,7 @@ export async function POST(request: NextRequest) {
       max_tokens: MODEL_CONFIG.max_tokens,
       thinking: MODEL_CONFIG.thinking,
       output_config: MODEL_CONFIG.output_config,
-      system: FUNDLENS_SYSTEM_PROMPT,
+      system: FUNDLENS_SYSTEM_BLOCKS,
       messages: [
         {
           role: 'user',
