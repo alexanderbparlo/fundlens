@@ -11,6 +11,8 @@ import {
 import { parseAnalysisResponse } from '@/lib/utils'
 import type { ChatRequest, FundAnalysis, APIResponse } from '@/types'
 
+export const maxDuration = 60
+
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 })
@@ -161,7 +163,11 @@ Please use this as your reference for all follow-up questions. When responding, 
       throw new Error('No text content in API response')
     }
 
-    const updatedAnalysis = parseAnalysisResponse(textBlock.text) as FundAnalysis
+    const parsedChat = parseAnalysisResponse(textBlock.text)
+    if (!isValidAnalysisShape(parsedChat)) {
+      throw new Error('Model returned unexpected response structure')
+    }
+    const updatedAnalysis = parsedChat
 
     // Preserve manual overrides — the model is instructed to return an empty array
     // for manual_overrides, but we always restore the application-managed overrides
@@ -174,10 +180,15 @@ Please use this as your reference for all follow-up questions. When responding, 
     )
   } catch (err) {
     console.error('[/api/chat] Error:', err)
-    const message = err instanceof Error ? err.message : 'An unexpected error occurred.'
-
+    const message = err instanceof Error ? err.message : ''
+    if (message.includes('JSON') || message.includes('response structure')) {
+      return NextResponse.json<APIResponse<never>>(
+        { success: false, error: 'The model returned an unexpected response format. Please try again.' },
+        { status: 502, headers }
+      )
+    }
     return NextResponse.json<APIResponse<never>>(
-      { success: false, error: `Chat failed: ${message}` },
+      { success: false, error: 'Chat failed. Please try again.' },
       { status: 500, headers }
     )
   }

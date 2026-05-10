@@ -3,9 +3,11 @@ import Anthropic from '@anthropic-ai/sdk'
 import mammoth from 'mammoth'
 import { FUNDLENS_SYSTEM_BLOCKS, MODEL_CONFIG } from '@/lib/systemPrompt'
 import { checkRateLimit, rateLimitHeaders, getClientIdentifier } from '@/lib/rateLimit'
-import { LIMITS, checkContentLength } from '@/lib/requestGuards'
+import { LIMITS, checkContentLength, isValidAnalysisShape } from '@/lib/requestGuards'
 import { parseAnalysisResponse } from '@/lib/utils'
 import type { AnalyzeRequest, FundAnalysis, APIResponse } from '@/types'
+
+export const maxDuration = 300
 
 const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 const DOC_MIME = 'application/msword'
@@ -158,18 +160,23 @@ export async function POST(request: NextRequest) {
             { status: 400, headers }
           )
         }
+        if (extractedText.length > LIMITS.MAX_EXTRACTED_TEXT_CHARS) {
+          return NextResponse.json<APIResponse<never>>(
+            { success: false, error: `Word document "${doc.name}" contains too much text. Please export as PDF instead.` },
+            { status: 400, headers }
+          )
+        }
         content.push({
           type: 'document',
           source: { type: 'text', media_type: 'text/plain', data: extractedText },
           title: doc.name,
         })
       } catch (err) {
+        console.error(`[mammoth] Failed to read "${doc.name}":`, err)
         return NextResponse.json<APIResponse<never>>(
           {
             success: false,
-            error: `Failed to read Word document "${doc.name}": ${
-              err instanceof Error ? err.message : 'unknown error'
-            }`,
+            error: `Failed to read Word document "${doc.name}". Please ensure it is a valid .docx file.`,
           },
           { status: 400, headers }
         )
@@ -218,26 +225,11 @@ export async function POST(request: NextRequest) {
       throw new Error('No text content in API response')
     }
 
-    // Parse the JSON schema returned by the model
-    const analysis = parseAnalysisResponse(textBlock.text) as FundAnalysis
-
-    // Validate that the response has the expected top-level structure
-    const requiredKeys = [
-      'fund_profile',
-      'fee_structure',
-      'performance_metrics',
-      'capital_activity',
-      'liquidity_terms',
-      'key_parties',
-      'document_metadata',
-      'chat_response',
-    ]
-
-    for (const key of requiredKeys) {
-      if (!(key in analysis)) {
-        throw new Error(`Missing required field in analysis response: ${key}`)
-      }
+    const parsed = parseAnalysisResponse(textBlock.text)
+    if (!isValidAnalysisShape(parsed)) {
+      throw new Error('Model returned unexpected response structure')
     }
+    const analysis = parsed
 
     return NextResponse.json<APIResponse<FundAnalysis>>(
       { success: true, data: analysis },
@@ -245,24 +237,15 @@ export async function POST(request: NextRequest) {
     )
   } catch (err) {
     console.error('[/api/analyze] Error:', err)
-
-    const message =
-      err instanceof Error ? err.message : 'An unexpected error occurred.'
-
-    // Distinguish API errors from parse errors for better debugging
-    if (message.includes('JSON')) {
+    const message = err instanceof Error ? err.message : ''
+    if (message.includes('JSON') || message.includes('response structure')) {
       return NextResponse.json<APIResponse<never>>(
-        {
-          success: false,
-          error:
-            'The model returned an unexpected response format. Please try again.',
-        },
+        { success: false, error: 'The model returned an unexpected response format. Please try again.' },
         { status: 502, headers }
       )
     }
-
     return NextResponse.json<APIResponse<never>>(
-      { success: false, error: `Analysis failed: ${message}` },
+      { success: false, error: 'Analysis failed. Please try again.' },
       { status: 500, headers }
     )
   }
