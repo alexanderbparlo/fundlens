@@ -246,10 +246,10 @@ export const FUNDLENS_SYSTEM_BLOCKS = [
 ]
 
 // Model configuration for Opus 4.7
-// Opus 4.7 uses adaptive thinking paired with output_config.effort.
+// Opus 4.8 uses adaptive thinking paired with output_config.effort.
 // xhigh effort lets the model spend maximum reasoning on complex financial documents.
 export const MODEL_CONFIG = {
-  model: 'claude-opus-4-7',
+  model: 'claude-opus-4-8',
   max_tokens: 4096,
   thinking: { type: 'adaptive' as const },
   output_config: { effort: 'xhigh' as const },
