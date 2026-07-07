@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { FileText, RefreshCw, AlertTriangle, CheckCircle, Clock } from 'lucide-react'
-import { cn, formatDate } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import type { FundAnalysis } from '@/types'
 
 interface DashboardHeaderProps {

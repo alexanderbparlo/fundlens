@@ -71,7 +71,6 @@ export function PerformancePanel({ analysis, onOverride }: PanelProps) {
   const { performance_metrics: pm, document_metadata: dm } = analysis
   const missing = dm.fields_not_found
   const overridden = dm.manual_overrides.map((o) => o.field)
-  const currency = analysis.fund_profile.currency || 'USD'
 
   const isMissing = (field: string) => missing.includes(`performance_metrics.${field}`)
   const isOverridden = (field: string) => overridden.includes(`performance_metrics.${field}`)
